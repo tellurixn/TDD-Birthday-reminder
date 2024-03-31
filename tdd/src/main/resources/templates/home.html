@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Birthdays Reminder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Reminder</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-<h1>Друзья</h1>
+<div class="container">
+    <h1>Birthday Reminder</h1>
+    <button id="addButton" class="btn btn-primary">Add a Friend</button>
+</div>
+
+<div id="addFriendForm" class="hidden">
+    <div class="container">
+        <h2>Добавить друга</h2>
+        <form id="friendForm" method="post">
+            <input type="text" id="friendName" class="form-control" placeholder="Фамилия" required>
+            <input type="text" id="friendLastName" class="form-control" placeholder="Имя" required>
+            <input type="date" id="friendBirthday" class="form-control" required>
+            <button type="submit" class="btn btn-success">Добавить</button>
+        </form>
+    </div>
+</div>
+
+<div id="friendsList">
+    <h2>Друзья</h2>
+    <ul id="friends">
+    </ul>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
 </body>
 </html>

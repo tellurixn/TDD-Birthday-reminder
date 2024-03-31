@@ -1,0 +1,18 @@
+.hidden {
+    display: none;
+}
+
+h1, h2{
+    display: flex;
+    justify-content: center;
+}
+
+.addFriendForm{
+    display: flex;
+    justify-content: center;
+}
+
+.friendList{
+    display: flex;
+    justify-content: center;
+}
