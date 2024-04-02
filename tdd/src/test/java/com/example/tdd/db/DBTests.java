@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Calendar;
 import java.util.Date;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
@@ -45,6 +46,26 @@ public class DBTests {
     public void findByLastNameTest(){
         Friend foundFriend = friendRepository.findByLastName(FRIEND_LAST_NAME);
         assertNotNull(foundFriend);
+    }
+
+    @Test
+    public void saveTest(){
+        Friend newFriend = Friend.builder().
+                lastName("Popov").
+                firstName("Pavel").
+                birthday(new Date(2005, Calendar.JUNE, 5)).
+                build();
+        friendRepository.save(newFriend);
+        Friend foundFriend = friendRepository.findByLastName("Popov");
+        assertEquals(foundFriend, newFriend);
+    }
+
+    @Test
+    public void updateTest(){
+        String last_name = "Sergeev";
+        FRIEND.setLastName(last_name);
+        friendRepository.update(FRIEND);
+        assertEquals(FRIEND.getLastName(), last_name);
     }
 
 }
