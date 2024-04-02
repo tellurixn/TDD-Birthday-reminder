@@ -1,17 +1,17 @@
 package com.example.tdd.controllers;
 
-import com.example.tdd.forms.AddFriendForm;
+
 import com.example.tdd.models.Friend;
 import com.example.tdd.repos.FriendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.time.LocalDate;
-import java.util.Date;
+
+
 
 @Controller
 public class HomeController {
@@ -19,7 +19,9 @@ public class HomeController {
     FriendRepository friendRepository;
 
     @GetMapping("/")
-    public String home(){
+    public String home(Model model){
+        Iterable<Friend> friends = friendRepository.findAll();
+        model.addAttribute("friends", friends);
         return "home";
     }
 
@@ -28,6 +30,7 @@ public class HomeController {
                                @RequestParam String friendLastName,
                                @RequestParam LocalDate friendBirthday){
 
+        System.out.println(friendLastName + friendName + friendBirthday);
         friendRepository.save(Friend.builder().
                 lastName(friendLastName).
                 firstName(friendName).
