@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,7 +26,7 @@ public class DBTests {
 
     private static final String FRIEND_FIRST_NAME = "Ivan";
     private static final String FRIEND_LAST_NAME = "Ivanov";
-    private static final Date FRIEND_BIRTHDAY = new Date(2001, Calendar.JANUARY,1);
+    private static final LocalDate FRIEND_BIRTHDAY = LocalDate.of(2001, Calendar.FEBRUARY, 1);
     private static final Friend FRIEND =  Friend.builder().
             lastName(FRIEND_LAST_NAME).
             firstName(FRIEND_FIRST_NAME).
@@ -56,7 +57,7 @@ public class DBTests {
         Friend newFriend = Friend.builder().
                 lastName("Popov").
                 firstName("Pavel").
-                birthday(new Date(2005, Calendar.JUNE, 5)).
+                birthday(LocalDate.of(2005, Calendar.JUNE, 5)).
                 build();
         friendRepository.save(newFriend);
         Friend foundFriend = friendRepository.findByLastName("Popov");
@@ -65,10 +66,10 @@ public class DBTests {
 
     @Test
     public void updateTest(){
-        String last_name = "Sergeev";
-        FRIEND.setLastName(last_name);
+        String first_name = "Sergey";
+        FRIEND.setFirstName(first_name);
         friendRepository.save(FRIEND);
-        assertEquals(FRIEND.getLastName(), last_name);
+        assertEquals(FRIEND.getFirstName(), first_name);
     }
 
 }

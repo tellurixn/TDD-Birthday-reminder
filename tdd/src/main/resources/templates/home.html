@@ -13,10 +13,10 @@
     <button id="addButton" class="btn btn-primary">Add a Friend</button>
 </div>
 
-<div id="addFriendForm" class="hidden">
+<div id="FriendForm" class="hidden">
     <div class="container">
         <h2>Добавить друга</h2>
-        <form id="friendForm" method="post">
+        <form th:action="@{/submitForm}" th:object="${addFriendForm}" method="post" action="#">
             <input type="text" id="friendName" class="form-control" placeholder="Фамилия" required>
             <input type="text" id="friendLastName" class="form-control" placeholder="Имя" required>
             <input type="date" id="friendBirthday" class="form-control" required>

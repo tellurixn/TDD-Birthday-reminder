@@ -3,6 +3,7 @@ package com.example.tdd.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -24,6 +25,6 @@ public class Friend {
     private String firstName;
 
     @Column(name = "birthday", nullable = false)
-    private Date birthday = new Date();
+    private LocalDate birthday;
 
 }
