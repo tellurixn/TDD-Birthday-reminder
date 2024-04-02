@@ -1,11 +1,15 @@
 package com.example.tdd.db;
 
+import com.example.tdd.TddApplication;
+import com.example.tdd.models.Friend;
+import com.example.tdd.repos.FriendRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,23 +22,23 @@ public class DBTests {
     private static final String FRIEND_FIRST_NAME = "Ivan";
     private static final String FRIEND_LAST_NAME = "Ivanov";
     private static final Date FRIEND_BIRTHDAY = new Date(2001, Calendar.JANUARY,1);
+    private static final Friend FRIEND =  Friend.builder().
+            lastName(FRIEND_LAST_NAME).
+            firstName(FRIEND_FIRST_NAME).
+            birthday(FRIEND_BIRTHDAY).
+            build();
     @Autowired
     FriendRepository friendRepository;
 
     @BeforeEach
     public void createFriendForTest(){
-        Friend newFriend = new Friend.builder().
-                lastName(FRIEND_LAST_NAME).
-                firstName(FRIEND_FIRST_NAME).
-                birthday(FRIEND_BIRTHDAY).
-                build();
-        friendRepository.save(friend);
+        friendRepository.save(FRIEND);
     }
 
     @AfterEach
     @Transactional
     public void clearTable(){
-        friendRepository.deleteAll();
+        friendRepository.delete(FRIEND);
     }
 
     @Test

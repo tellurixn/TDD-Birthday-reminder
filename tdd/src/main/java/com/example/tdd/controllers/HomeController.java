@@ -8,7 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(){
-        //todo сверстать полноценную домашнюю страницу
         return "home";
     }
 }
