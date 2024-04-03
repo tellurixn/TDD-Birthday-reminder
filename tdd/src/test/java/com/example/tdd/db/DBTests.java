@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,6 +30,7 @@ public class DBTests {
     private static final String FRIEND_FIRST_NAME = "Ivan";
     private static final String FRIEND_LAST_NAME = "Ivanov";
     private static final LocalDate FRIEND_BIRTHDAY = LocalDate.of(2001, Calendar.FEBRUARY, 1);
+    private static final int FRIEND_AGE = Period.between(FRIEND_BIRTHDAY, LocalDate.now()).getYears();
     private static final Friend FRIEND =  Friend.builder().
             lastName(FRIEND_LAST_NAME).
             firstName(FRIEND_FIRST_NAME).
@@ -72,6 +74,12 @@ public class DBTests {
         FRIEND.setFirstName(first_name);
         friendRepository.save(FRIEND);
         assertEquals(FRIEND.getFirstName(), first_name);
+    }
+
+    @Test
+    public void getAgeTest(){
+        Friend foundFriend = friendRepository.findByLastName(FRIEND_LAST_NAME);
+        assertEquals(FRIEND_AGE, foundFriend.getAge());
     }
 
 }
