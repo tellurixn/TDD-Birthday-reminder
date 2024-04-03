@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
-
+import java.util.List;
 
 
 @Controller
@@ -21,9 +21,15 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model){
         Iterable<Friend> friends = friendRepository.findAll();
+        List<Friend> friendsWithBirthdayThisMonth = friendRepository.findAllFriendsWithBirthdayThisMonth();
+
+        model.addAttribute("friendsWithBirthdayThisMonth", friendsWithBirthdayThisMonth);
         model.addAttribute("friends", friends);
+
         return "home";
     }
+//todo странице нормальный вид придать
+//todo сделать список тех у кого скоро др
 
     @PostMapping("/submitForm")
     public String addNewFriend(@RequestParam String friendName,

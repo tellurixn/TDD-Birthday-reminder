@@ -32,10 +32,10 @@
     <h2>Скоро день рождения</h2>
     <table id="soonBirthdayFriendTable">
         <tbody>
-        <tr th:each="friend: ${friends}">
-            <td th:text="${friend.lastName}" />
-            <td th:text="${friend.firstName}" />
-            <td th:text="${friend.birthday}" />
+        <tr th:each="friendWithBirthdayThisMonth: ${friendsWithBirthdayThisMonth}">
+            <td th:text="${friendWithBirthdayThisMonth.lastName}" />
+            <td th:text="${friendWithBirthdayThisMonth.firstName}" />
+            <td th:text="${friendWithBirthdayThisMonth.birthday}" />
         </tr>
         </tbody>
     </table>
