@@ -4,6 +4,7 @@ import com.example.tdd.TddApplication;
 import com.example.tdd.models.Friend;
 import com.example.tdd.repos.FriendRepository;
 import jakarta.transaction.Transactional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,7 +31,13 @@ public class DBTests {
 
     private static final String FRIEND_FIRST_NAME = "Ivan";
     private static final String FRIEND_LAST_NAME = "Ivanov";
-    private static final LocalDate FRIEND_BIRTHDAY = LocalDate.of(2001, Calendar.FEBRUARY, 1);
+    private static final int FRIEND_BIRTHDAY_YEAR = 2001;
+    private static final int FRIEND_BIRTHDAY_MONTH = Calendar.FEBRUARY;
+    private static final int FRIEND_BIRTHDAY_DAY = 15;
+    private static final LocalDate FRIEND_BIRTHDAY = LocalDate.of(
+            FRIEND_BIRTHDAY_YEAR,
+            FRIEND_BIRTHDAY_MONTH,
+            FRIEND_BIRTHDAY_DAY);
     private static final int FRIEND_AGE = Period.between(FRIEND_BIRTHDAY, LocalDate.now()).getYears();
     private static final Friend FRIEND =  Friend.builder().
             lastName(FRIEND_LAST_NAME).
@@ -80,6 +88,23 @@ public class DBTests {
     public void getAgeTest(){
         Friend foundFriend = friendRepository.findByLastName(FRIEND_LAST_NAME);
         assertEquals(FRIEND_AGE, foundFriend.getAge());
+    }
+
+    @Test
+    public void findAllFriendsWithBirthdayThisMonthTest(){
+        LocalDate currentDate = LocalDate.now();
+        int currentMonth = currentDate.getMonthValue();
+
+        FRIEND.setBirthday(LocalDate.of(FRIEND_BIRTHDAY_YEAR, currentMonth, FRIEND_BIRTHDAY_DAY));
+        friendRepository.save(FRIEND);
+
+        List<Friend> friendsThisMonth = friendRepository.findAllFriendsWithBirthdayThisMonth();
+        for(Friend friend : friendsThisMonth) {
+            LocalDate birthday = friend.getBirthday();
+            int birthdayMonth = birthday.getMonthValue();
+
+            Assertions.assertThat(birthdayMonth).isEqualTo(currentMonth);
+        }
     }
 
 }
