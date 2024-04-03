@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 @Entity
@@ -27,4 +28,7 @@ public class Friend {
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
+    public int getAge() {
+        return Period.between(birthday, LocalDate.now()).getYears();
+    }
 }
