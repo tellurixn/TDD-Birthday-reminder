@@ -49,7 +49,7 @@
         <tr th:each="friend: ${friends}">
             <td th:text="${friend.lastName}" />
             <td th:text="${friend.firstName}" />
-            <td th:text="${friend.birthday}" />
+            <td th:text="'Возраст: ' + ${friend.getAge()}" />
         </tr>
         </tbody>
     </table>

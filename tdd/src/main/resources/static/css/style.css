@@ -26,3 +26,11 @@ h1, h2{
 #soonBirthdayFriendTable{
     font-size: x-large;
 }
+
+#friendTable td {
+    padding-right: 10px;
+}
+
+#soonBirthdayFriendTable td {
+    padding-right: 10px;
+}
