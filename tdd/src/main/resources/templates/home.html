@@ -9,29 +9,50 @@
 </head>
 <body>
 <div class="container">
-    <h1>Birthday Reminder</h1>
-    <button id="addButton" class="btn btn-primary">Добавить друга</button>
+    <h1>Birthday Reminder</h1><br>
+    <div class="addFriendForm">
+        <button id="addButton" class="btn btn-primary">Добавить друга</button>
+    </div>
 </div>
 
 <div id="FriendForm" class="hidden">
     <div class="container">
-        <h2>Добавить друга</h2>
+        <h2>Добавить друга</h2><br>
         <form method="post" action="/submitForm">
-            <input type="text" name="friendName" id="friendName" class="form-control" placeholder="Имя" >
-            <input type="text" name="friendLastName" id="friendLastName" class="form-control" placeholder="Фамилия" >
-            <input type="date" name="friendBirthday" id="friendBirthday" class="form-control">
+            <input type="text" name="friendName" id="friendName" class="form-control" placeholder="Имя" required><br>
+            <input type="text" name="friendLastName" id="friendLastName" class="form-control" placeholder="Фамилия" required><br>
+            <input type="date" name="friendBirthday" id="friendBirthday" class="form-control" required><br>
             <button type="submit" class="btn btn-success">Добавить</button>
         </form>
     </div>
 </div>
 
-<div id="friendsList">
+<hr>
+<div id="soonBirthdayFriendsList" class="friendList">
+    <h2>Скоро день рождения</h2>
+    <table id="soonBirthdayFriendTable">
+        <tbody>
+        <tr th:each="friend: ${friends}">
+            <td th:text="${friend.lastName}" />
+            <td th:text="${friend.firstName}" />
+            <td th:text="${friend.birthday}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr>
+<div id="friendsList" class="friendList">
     <h2>Друзья</h2>
-    <tr th:each="friend: ${friends}">
-        <td th:text="${friend.lastName}" />
-        <td th:text="${friend.firstName}" />
-        <td th:text="${friend.birthday}" />
-    </tr>
+    <table id="friendTable">
+        <tbody>
+        <tr th:each="friend: ${friends}">
+            <td th:text="${friend.lastName}" />
+            <td th:text="${friend.firstName}" />
+            <td th:text="${friend.birthday}" />
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

@@ -14,5 +14,15 @@ h1, h2{
 
 .friendList{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: smaller;
+}
+
+#friendTable{
+    font-size: x-large;
+}
+
+#soonBirthdayFriendTable{
+    font-size: x-large;
 }
